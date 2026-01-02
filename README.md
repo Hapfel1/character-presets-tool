@@ -143,14 +143,6 @@ Body type is stored at offset 0x9 within each preset:
 - `0` = Type A (Male build)
 - `1` = Type B (Female build)
 
-### Checksum Handling
-
-When modifying presets, the tool automatically:
-1. Updates the preset data in `USER_DATA_10`
-2. Recalculates the MD5 checksum for `USER_DATA_10`
-3. Writes the changes back to the save file
-4. Creates a `.backup` file for safety
-
 ## Safety Features
 
 - **Automatic Backups**: Creates `filename.backup` before any modifications
