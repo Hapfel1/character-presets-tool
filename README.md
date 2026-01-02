@@ -74,13 +74,6 @@ Body type is stored at offset 0x9 within each preset:
 - **Empty Detection**: Identifies and skips empty preset slots
 - **Read-Only Options**: Export and view don't modify save files
 
-
-## Development
-
-### Building from Source
-
-The tool uses only Python standard library, so no build process is needed.
-
 ## Contributing
 
 Contributions are welcome
