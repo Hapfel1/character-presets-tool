@@ -1,6 +1,6 @@
 # Elden Ring Character Preset Manager
 
-A comprehensive tool for managing character appearance presets in Elden Ring save files. Extract, view, export, and copy character customization data between saves.
+A tool for managing character appearance presets in Elden Ring save files. Extract, view, export, and copy character customization data between saves.
 
 ## Features
 
