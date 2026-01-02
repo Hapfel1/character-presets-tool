@@ -2,6 +2,9 @@
 
 A tool for managing character appearance presets in Elden Ring save files. Extract, view, export, and copy character customization data between saves.
 
+## Download
+[Get the latest release here](../../releases/latest)
+
 ## Features
 
 - **View Character Presets**: Browse all 15 preset slots in your save file
@@ -19,9 +22,6 @@ Elden Ring stores up to 15 character appearance presets in the `USER_DATA_10` se
 - Body proportions
 - Body type selection
 
-## Download
-[Get the latest release here](../../releases/latest)
-
 ## How to Use
 1. Click "Browse" or "Auto-Find" to select your save file
 2. Click "Load Presets" to read the character presets
@@ -33,8 +33,6 @@ Elden Ring stores up to 15 character appearance presets in the `USER_DATA_10` se
 
 ## Development & Building
 See [`DEVELOPMENT.md`](DEVELOPMENT.md).
-
-
 
 ## Technical Details
 
