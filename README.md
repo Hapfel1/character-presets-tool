@@ -9,8 +9,6 @@ A comprehensive tool for managing character appearance presets in Elden Ring sav
 - **Export to JSON**: Save presets for backup or sharing
 - **Copy Between Saves**: Transfer presets from one save file to another
 - **Auto-Detection**: Automatically locate save files in default directories
-- **Safe Operation**: Automatic backups before any modifications
-- **Dual Interface**: Both GUI and command-line tools
 
 ## What Are Character Presets?
 
@@ -189,4 +187,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 This tool modifies save files. While it creates automatic backups, **always keep your own backups** of important saves. Use at your own risk.
 
-The developers are not responsible for corrupted saves, lost data, or any issues arising from the use of this tool.
+The developer is not responsible for corrupted saves, lost data, or any issues arising from the use of this tool.
