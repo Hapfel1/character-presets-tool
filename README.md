@@ -14,9 +14,9 @@ A tool for managing character appearance presets in Elden Ring save files. Extra
 
 Elden Ring stores up to 15 character appearance presets in the `USER_DATA_10` section of save files. Each preset contains:
 - Face model and hair selection
-- 68 facial structure parameters (jaw, nose, eyes, etc.)
-- 50+ color and cosmetic values (skin, hair, makeup, tattoos)
-- Body proportions (head, chest, abdomen, arms, legs)
+- 68 facial structure parameters
+- 50+ color and cosmetic values
+- Body proportions
 - Body type selection
 
 ## Installation
@@ -30,7 +30,7 @@ Elden Ring stores up to 15 character appearance presets in the `USER_DATA_10` se
 
 Clone the repository:
 ```bash
-git clone https://github.com/yourusername/elden-ring-preset-manager.git
+git clone https://github.com/Hapfel1/elden-ring-preset-manager.git
 cd elden-ring-preset-manager
 ```
 ## Usage
