@@ -169,7 +169,7 @@ Contributions are welcome
 ## Acknowledgments
 
 - Structure based on [ER-Save-Lib](https://github.com/soulsmods/ER-Save-Lib) Rust implementation
-- 010 Editor template by Umgak for initial structure analysis
+- 010 Editor template by [Umgak](https://github.com/Umgak) for initial structure analysis
 
 ## License
 
