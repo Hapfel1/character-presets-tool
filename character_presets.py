@@ -725,6 +725,217 @@ class FacePreset:
             "eye_color_left": [self.left_iris_color_r, self.left_iris_color_g, self.left_iris_color_b],
             "eye_color_right": [self.right_iris_color_r, self.right_iris_color_g, self.right_iris_color_b],
         }
+    
+    @classmethod
+    def from_dict(cls, data: dict) -> FacePreset:
+        """
+        Create FacePreset from dictionary (exported JSON format)
+        
+        Args:
+            data: Dictionary with preset parameters
+            
+        Returns:
+            FacePreset object
+        """
+        preset = cls()
+        
+        # Set magic to indicate active preset
+        preset.magic = b"FACE"
+        preset.alignment = 0
+        preset.size = 0x12F  # Standard face data size
+        preset.face_data_marker = 0  # Active preset
+        
+        # Initialize padding
+        preset.unk0x00 = bytes([0] * 0x14)
+        preset.unk0x6c = bytes([0] * 64)
+        preset.unk0xb1 = bytes([0] * 2)
+        preset.pad = bytes([0] * 10)
+        
+        # Set body type in unk0x00 at offset 0x9
+        body_type = data.get("body_type", 0)
+        unk_list = list(preset.unk0x00)
+        if len(unk_list) >= 10:
+            unk_list[9] = body_type
+        preset.unk0x00 = bytes(unk_list)
+        
+        # Face models
+        preset.face_model = data.get("face_model", 0)
+        preset.hair_model = data.get("hair_model", 0)
+        preset.eyebrow_model = data.get("eyebrow_model", 0)
+        preset.beard_model = data.get("beard_model", 0)
+        preset.eyepatch_model = data.get("eyepatch_model", 0)
+        
+        # Facial structure
+        preset.apparent_age = data.get("apparent_age", 128)
+        preset.facial_aesthetic = data.get("facial_aesthetic", 128)
+        preset.form_emphasis = data.get("form_emphasis", 128)
+        preset.brow_ridge_height = data.get("brow_ridge_height", 128)
+        preset.inner_brow_ridge = data.get("inner_brow_ridge", 128)
+        preset.outer_brow_ridge = data.get("outer_brow_ridge", 128)
+        preset.cheekbone_height = data.get("cheekbone_height", 128)
+        preset.cheekbone_depth = data.get("cheekbone_depth", 128)
+        preset.cheekbone_width = data.get("cheekbone_width", 128)
+        preset.cheekbone_protrusion = data.get("cheekbone_protrusion", 128)
+        preset.cheeks = data.get("cheeks", 128)
+        preset.chin_tip_position = data.get("chin_tip_position", 128)
+        preset.chin_length = data.get("chin_length", 128)
+        preset.chin_protrusion = data.get("chin_protrusion", 128)
+        preset.chin_depth = data.get("chin_depth", 128)
+        preset.chin_size = data.get("chin_size", 128)
+        preset.chin_height = data.get("chin_height", 128)
+        preset.chin_width = data.get("chin_width", 128)
+        preset.eye_position = data.get("eye_position", 128)
+        preset.eye_size = data.get("eye_size", 128)
+        preset.eye_slant = data.get("eye_slant", 128)
+        preset.eye_spacing = data.get("eye_spacing", 128)
+        preset.nose_size = data.get("nose_size", 128)
+        preset.nose_forehead_ratio = data.get("nose_forehead_ratio", 128)
+        preset.face_protrusion = data.get("face_protrusion", 128)
+        preset.vertical_face_ratio = data.get("vertical_face_ratio", 128)
+        preset.facial_feature_slant = data.get("facial_feature_slant", 128)
+        preset.horizontal_face_ratio = data.get("horizontal_face_ratio", 128)
+        preset.forehead_depth = data.get("forehead_depth", 128)
+        preset.forehead_protrusion = data.get("forehead_protrusion", 128)
+        preset.jaw_protrusion = data.get("jaw_protrusion", 128)
+        preset.jaw_width = data.get("jaw_width", 128)
+        preset.lower_jaw = data.get("lower_jaw", 128)
+        preset.jaw_contour = data.get("jaw_contour", 128)
+        preset.lip_shape = data.get("lip_shape", 128)
+        preset.lip_size = data.get("lip_size", 128)
+        preset.lip_fullness = data.get("lip_fullness", 128)
+        preset.mouth_expression = data.get("mouth_expression", 128)
+        preset.lip_protrusion = data.get("lip_protrusion", 128)
+        preset.lip_thickness = data.get("lip_thickness", 128)
+        preset.mouth_protrusion = data.get("mouth_protrusion", 128)
+        preset.mouth_slant = data.get("mouth_slant", 128)
+        preset.occlusion = data.get("occlusion", 128)
+        preset.mouth_position = data.get("mouth_position", 128)
+        preset.mouth_width = data.get("mouth_width", 128)
+        preset.mouth_chin_distance = data.get("mouth_chin_distance", 128)
+        preset.nose_ridge_depth = data.get("nose_ridge_depth", 128)
+        preset.nose_ridge_length = data.get("nose_ridge_length", 128)
+        preset.nose_position = data.get("nose_position", 128)
+        preset.nose_tip_height = data.get("nose_tip_height", 128)
+        preset.nostril_slant = data.get("nostril_slant", 128)
+        preset.nostril_size = data.get("nostril_size", 128)
+        preset.nostril_width = data.get("nostril_width", 128)
+        preset.nose_protrusion = data.get("nose_protrusion", 128)
+        preset.nose_bridge_height = data.get("nose_bridge_height", 128)
+        preset.bridge_protrusion1 = data.get("bridge_protrusion1", 128)
+        preset.bridge_protrusion2 = data.get("bridge_protrusion2", 128)
+        preset.nose_bridge_width = data.get("nose_bridge_width", 128)
+        preset.nose_height = data.get("nose_height", 128)
+        preset.nose_slant = data.get("nose_slant", 128)
+        
+        # Body proportions
+        preset.head_size = data.get("head_size", 128)
+        preset.chest_size = data.get("chest_size", 128)
+        preset.abdomen_size = data.get("abdomen_size", 128)
+        preset.arms_size = data.get("arms_size", 128)
+        preset.legs_size = data.get("legs_size", 128)
+        
+        # Colors - handle both formats (array or individual)
+        skin_color = data.get("skin_color", [205, 180, 165])
+        preset.skin_color_r = skin_color[0] if isinstance(skin_color, list) else data.get("skin_color_r", 205)
+        preset.skin_color_g = skin_color[1] if isinstance(skin_color, list) else data.get("skin_color_g", 180)
+        preset.skin_color_b = skin_color[2] if isinstance(skin_color, list) else data.get("skin_color_b", 165)
+        
+        hair_color = data.get("hair_color", [45, 35, 30])
+        preset.hair_color_r = hair_color[0] if isinstance(hair_color, list) else data.get("hair_color_r", 45)
+        preset.hair_color_g = hair_color[1] if isinstance(hair_color, list) else data.get("hair_color_g", 35)
+        preset.hair_color_b = hair_color[2] if isinstance(hair_color, list) else data.get("hair_color_b", 30)
+        
+        eye_color_left = data.get("eye_color_left", [85, 120, 145])
+        preset.left_iris_color_r = eye_color_left[0] if isinstance(eye_color_left, list) else data.get("left_iris_color_r", 85)
+        preset.left_iris_color_g = eye_color_left[1] if isinstance(eye_color_left, list) else data.get("left_iris_color_g", 120)
+        preset.left_iris_color_b = eye_color_left[2] if isinstance(eye_color_left, list) else data.get("left_iris_color_b", 145)
+        
+        eye_color_right = data.get("eye_color_right", [85, 120, 145])
+        preset.right_iris_color_r = eye_color_right[0] if isinstance(eye_color_right, list) else data.get("right_iris_color_r", 85)
+        preset.right_iris_color_g = eye_color_right[1] if isinstance(eye_color_right, list) else data.get("right_iris_color_g", 120)
+        preset.right_iris_color_b = eye_color_right[2] if isinstance(eye_color_right, list) else data.get("right_iris_color_b", 145)
+        
+        # Set default values for other color/cosmetic fields
+        preset.skin_luster = data.get("skin_luster", 128)
+        preset.pores = data.get("pores", 0)
+        preset.stubble = data.get("stubble", 0)
+        preset.dark_circles = data.get("dark_circles", 0)
+        preset.dark_circle_color_r = data.get("dark_circle_color_r", 0)
+        preset.dark_circle_color_g = data.get("dark_circle_color_g", 0)
+        preset.dark_circle_color_b = data.get("dark_circle_color_b", 0)
+        preset.cheeks_color_intensity = data.get("cheeks_color_intensity", 0)
+        preset.cheek_color_r = data.get("cheek_color_r", 0)
+        preset.cheek_color_g = data.get("cheek_color_g", 0)
+        preset.cheek_color_b = data.get("cheek_color_b", 0)
+        preset.eye_liner = data.get("eye_liner", 0)
+        preset.eye_liner_color_r = data.get("eye_liner_color_r", 0)
+        preset.eye_liner_color_g = data.get("eye_liner_color_g", 0)
+        preset.eye_liner_color_b = data.get("eye_liner_color_b", 0)
+        preset.eye_shadow_lower = data.get("eye_shadow_lower", 0)
+        preset.eye_shadow_lower_color_r = data.get("eye_shadow_lower_color_r", 0)
+        preset.eye_shadow_lower_color_g = data.get("eye_shadow_lower_color_g", 0)
+        preset.eye_shadow_lower_color_b = data.get("eye_shadow_lower_color_b", 0)
+        preset.eye_shadow_upper = data.get("eye_shadow_upper", 0)
+        preset.eye_shadow_upper_color_r = data.get("eye_shadow_upper_color_r", 0)
+        preset.eye_shadow_upper_color_g = data.get("eye_shadow_upper_color_g", 0)
+        preset.eye_shadow_upper_color_b = data.get("eye_shadow_upper_color_b", 0)
+        preset.lip_stick = data.get("lip_stick", 0)
+        preset.lip_stick_color_r = data.get("lip_stick_color_r", 0)
+        preset.lip_stick_color_g = data.get("lip_stick_color_g", 0)
+        preset.lip_stick_color_b = data.get("lip_stick_color_b", 0)
+        preset.tattoo_mark_position_horizontal = data.get("tattoo_mark_position_horizontal", 128)
+        preset.tattoo_mark_position_vertical = data.get("tattoo_mark_position_vertical", 128)
+        preset.tattoo_mark_angle = data.get("tattoo_mark_angle", 128)
+        preset.tattoo_mark_expansion = data.get("tattoo_mark_expansion", 128)
+        preset.tattoo_mark_color_r = data.get("tattoo_mark_color_r", 0)
+        preset.tattoo_mark_color_g = data.get("tattoo_mark_color_g", 0)
+        preset.tattoo_mark_color_b = data.get("tattoo_mark_color_b", 0)
+        preset.tattoo_mark_flip = data.get("tattoo_mark_flip", 0)
+        preset.body_hair = data.get("body_hair", 0)
+        preset.body_hair_color_r = data.get("body_hair_color_r", 0)
+        preset.body_hair_color_g = data.get("body_hair_color_g", 0)
+        preset.body_hair_color_b = data.get("body_hair_color_b", 0)
+        preset.right_iris_size = data.get("right_iris_size", 128)
+        preset.right_eye_clouding = data.get("right_eye_clouding", 0)
+        preset.right_eye_clouding_color_r = data.get("right_eye_clouding_color_r", 0)
+        preset.right_eye_clouding_color_g = data.get("right_eye_clouding_color_g", 0)
+        preset.right_eye_clouding_color_b = data.get("right_eye_clouding_color_b", 0)
+        preset.right_eye_white_color_r = data.get("right_eye_white_color_r", 255)
+        preset.right_eye_white_color_g = data.get("right_eye_white_color_g", 255)
+        preset.right_eye_white_color_b = data.get("right_eye_white_color_b", 255)
+        preset.right_eye_position = data.get("right_eye_position", 128)
+        preset.left_iris_size = data.get("left_iris_size", 128)
+        preset.left_eye_clouding = data.get("left_eye_clouding", 0)
+        preset.left_eye_clouding_color_r = data.get("left_eye_clouding_color_r", 0)
+        preset.left_eye_clouding_color_g = data.get("left_eye_clouding_color_g", 0)
+        preset.left_eye_clouding_color_b = data.get("left_eye_clouding_color_b", 0)
+        preset.left_eye_white_color_r = data.get("left_eye_white_color_r", 255)
+        preset.left_eye_white_color_g = data.get("left_eye_white_color_g", 255)
+        preset.left_eye_white_color_b = data.get("left_eye_white_color_b", 255)
+        preset.left_eye_position = data.get("left_eye_position", 128)
+        preset.luster = data.get("luster", 128)
+        preset.hair_root_darkness = data.get("hair_root_darkness", 128)
+        preset.white_hairs = data.get("white_hairs", 0)
+        preset.beard_color_r = data.get("beard_color_r", 45)
+        preset.beard_color_g = data.get("beard_color_g", 35)
+        preset.beard_color_b = data.get("beard_color_b", 30)
+        preset.beard_luster = data.get("beard_luster", 128)
+        preset.beard_root_darkness = data.get("beard_root_darkness", 128)
+        preset.beard_white_hairs = data.get("beard_white_hairs", 0)
+        preset.brow_color_r = data.get("brow_color_r", 45)
+        preset.brow_color_g = data.get("brow_color_g", 35)
+        preset.brow_color_b = data.get("brow_color_b", 30)
+        preset.brow_luster = data.get("brow_luster", 128)
+        preset.brow_root_darkness = data.get("brow_root_darkness", 128)
+        preset.brow_white_hairs = data.get("brow_white_hairs", 0)
+        preset.eye_lash_color_r = data.get("eye_lash_color_r", 0)
+        preset.eye_lash_color_g = data.get("eye_lash_color_g", 0)
+        preset.eye_lash_color_b = data.get("eye_lash_color_b", 0)
+        preset.eye_patch_color_r = data.get("eye_patch_color_r", 0)
+        preset.eye_patch_color_g = data.get("eye_patch_color_g", 0)
+        preset.eye_patch_color_b = data.get("eye_patch_color_b", 0)
+        
+        return preset
 
 
 @dataclass

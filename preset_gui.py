@@ -153,6 +153,14 @@ class PresetManagerGUI:
             width=20,
             style="Accent.TButton",
         ).pack(side=tk.LEFT, padx=5)
+
+        ttk.Button(
+            action_frame,
+            text="Import from JSON",
+            command=self.import_preset,
+            width=20,
+            style="Accent.TButton",
+        ).pack(side=tk.LEFT, padx=5)
         
         ttk.Button(
             action_frame,
@@ -439,6 +447,145 @@ class PresetManagerGUI:
             messagebox.showerror("Export Failed", f"Failed to export presets:\n{str(e)}")
             import traceback
             traceback.print_exc()
+
+    def import_preset(self):
+        """Import preset from JSON file"""
+        if not self.current_save:
+            messagebox.showerror("Error", "No save file loaded")
+            return
+        
+        # Select JSON file
+        json_path = filedialog.askopenfilename(
+            title="Select Preset JSON File",
+            filetypes=[("JSON Files", "*.json"), ("All Files", "*.*")],
+        )
+        
+        if not json_path:
+            return
+        
+        # Show import dialog
+        self.show_import_dialog(json_path)
+        
+    def show_import_dialog(self, json_path):
+        """Show dialog for importing preset from JSON"""
+        import json
+        
+        # Load JSON to show available presets
+        try:
+            with open(json_path, 'r') as f:
+                data = json.load(f)
+            
+            if 'presets' not in data or len(data['presets']) == 0:
+                messagebox.showerror("Error", "No presets found in JSON file")
+                return
+            
+            presets = data['presets']
+            
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to load JSON file:\n{str(e)}")
+            return
+        
+        # Create dialog
+        dialog = tk.Toplevel(self.root)
+        dialog.title("Import Preset from JSON")
+        dialog.geometry("600x300")
+        dialog.grab_set()
+        
+        # Center dialog
+        dialog.update_idletasks()
+        x = (dialog.winfo_screenwidth() // 2) - (dialog.winfo_width() // 2)
+        y = (dialog.winfo_screenheight() // 2) - (dialog.winfo_height() // 2)
+        dialog.geometry(f"600x300+{x}+{y}")
+        
+        frame = ttk.Frame(dialog, padding=20)
+        frame.pack(fill=tk.BOTH, expand=True)
+        
+        ttk.Label(
+            frame,
+            text=f"Import from: {os.path.basename(json_path)}",
+            font=("Segoe UI", 11, "bold"),
+        ).grid(row=0, column=0, columnspan=3, pady=(0, 15))
+        
+        # Preset selection
+        ttk.Label(frame, text="Select Preset from JSON:").grid(row=1, column=0, sticky=tk.W, pady=5)
+        
+        preset_var = tk.StringVar()
+        preset_options = []
+        for i, preset_entry in enumerate(presets):
+            slot = preset_entry.get('slot', i)
+            preset_data = preset_entry.get('data', {})
+            body_type = "Type A" if preset_data.get('body_type', 0) == 0 else "Type B"
+            preset_options.append(f"Preset {i+1} (Original Slot {slot+1}, {body_type})")
+        
+        preset_combo = ttk.Combobox(frame, textvariable=preset_var, values=preset_options, state="readonly", width=40)
+        preset_combo.grid(row=1, column=1, columnspan=2, padx=5)
+        preset_combo.current(0)
+        
+        ttk.Label(frame, text="Destination Slot (1-15):").grid(row=2, column=0, sticky=tk.W, pady=5)
+        
+        dest_slot_var = tk.StringVar(value="1")
+        dest_slot_entry = ttk.Entry(frame, textvariable=dest_slot_var, width=10)
+        dest_slot_entry.grid(row=2, column=1, sticky=tk.W, padx=5)
+        
+        def do_import():
+            try:
+                # Get selected preset index
+                preset_index = preset_combo.current() + 1  # 1-based for user
+                
+                dest_slot = int(dest_slot_var.get())
+                if dest_slot < 1 or dest_slot > 15:
+                    messagebox.showerror("Error", "Slot must be between 1 and 15")
+                    return
+                
+                # Import preset
+                success = self.current_save.import_preset_from_json(
+                    json_path, preset_index - 1, dest_slot - 1
+                )
+                
+                if success:
+                    # Create backup
+                    import shutil
+                    backup_path = self.current_save_path + ".backup"
+                    shutil.copy2(self.current_save_path, backup_path)
+                    
+                    # Save modified file
+                    self.current_save.save(self.current_save_path)
+                    
+                    # Reload presets to show changes
+                    self.current_save = Save.from_file(self.current_save_path)
+                    self.presets = self.current_save.get_character_presets()
+                    self.populate_preset_list()
+                    
+                    messagebox.showinfo(
+                        "Import Successful",
+                        f"Preset imported successfully to slot {dest_slot}!\n\n"
+                        f"Backup created: {os.path.basename(backup_path)}"
+                    )
+                    dialog.destroy()
+                else:
+                    messagebox.showerror(
+                        "Import Failed",
+                        "Failed to import preset.\n\n"
+                        "Check that the JSON file is valid and the slot is available."
+                    )
+                    
+            except ValueError:
+                messagebox.showerror("Error", "Invalid slot number - must be an integer (1-15)")
+            except Exception as e:
+                messagebox.showerror("Error", f"Failed to import preset:\n{str(e)}")
+                import traceback
+                traceback.print_exc()
+        
+        button_frame = ttk.Frame(frame)
+        button_frame.grid(row=3, column=0, columnspan=3, pady=(15, 0))
+        
+        ttk.Button(
+            button_frame, text="Import Preset", command=do_import, width=15, style="Accent.TButton"
+        ).pack(side=tk.LEFT, padx=5)
+        
+        ttk.Button(
+            button_frame, text="Cancel", command=dialog.destroy, width=15
+        ).pack(side=tk.LEFT, padx=5)
             
     def copy_preset(self):
         """Copy selected preset to another save file"""

@@ -541,6 +541,62 @@ class Save:
             json.dump(data, f, indent=2)
         
         return len(active)
+    
+    def import_preset_from_json(self, json_path: str, preset_slot: int, dest_slot: int) -> bool:
+        """
+        Import a preset from JSON file into a specific slot
+        
+        Args:
+            json_path: Path to JSON file exported by export_presets()
+            preset_slot: Which preset in the JSON to import (0-based index in JSON)
+            dest_slot: Destination slot in save file (0-14)
+            
+        Returns:
+            True if successful
+        """
+        import json
+        from character_presets import FacePreset
+        
+        try:
+            # Load JSON
+            with open(json_path, 'r') as f:
+                data = json.load(f)
+            
+            # Validate JSON structure
+            if 'presets' not in data:
+                return False
+            
+            if preset_slot < 0 or preset_slot >= len(data['presets']):
+                return False
+            
+            # Get preset data
+            preset_entry = data['presets'][preset_slot]
+            preset_data = preset_entry.get('data', {})
+            
+            # Create FacePreset from dict
+            new_preset = FacePreset.from_dict(preset_data)
+            
+            # Get destination presets container
+            dest_presets = self.get_character_presets()
+            if not dest_presets:
+                return False
+            
+            if dest_slot < 0 or dest_slot >= 15:
+                return False
+            
+            # Set the preset
+            dest_presets.presets[dest_slot] = new_preset
+            
+            # Update in raw data
+            self._update_preset_in_raw_data(dest_slot, new_preset)
+            
+            return True
+            
+        except Exception:
+            import traceback
+            traceback.print_exc()
+            return False
+
 
     def copy_preset_to_save(self, source_save, source_slot: int, dest_slot: int) -> bool:
         """Copy preset from another save file"""
