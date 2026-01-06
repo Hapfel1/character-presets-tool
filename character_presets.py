@@ -739,36 +739,40 @@ class FacePreset:
         """
         preset = cls()
         
-        # Set magic to indicate active preset
+        # CRITICAL: These values must match working presets
         preset.magic = b"FACE"
-        preset.alignment = 0
-        preset.size = 0x12F  # Standard face data size
-        preset.face_data_marker = 0  # Active preset
+        preset.alignment = 4  # NOT 0!
+        preset.size = 0x120  # NOT 0x12F!
+        preset.face_data_marker = 32767  # Use a common value from working presets
         
-        # Initialize padding
-        preset.unk0x00 = bytes([0] * 0x14)
+        # Initialize padding - use zeros since we'll copy from template
+        preset.unk0x00 = bytes([0] * 20)
         preset.unk0x6c = bytes([0] * 64)
-        preset.unk0xb1 = bytes([0] * 2)
+        preset.unk0xb1 = bytes([0, 0])
         preset.pad = bytes([0] * 10)
         
         # Set body type in unk0x00 at offset 0x9
         body_type = data.get("body_type", 0)
         unk_list = list(preset.unk0x00)
-        if len(unk_list) >= 10:
-            unk_list[9] = body_type
+        unk_list[8] = 0x01  # This byte is always 0x01 in working presets
+        unk_list[9] = body_type
         preset.unk0x00 = bytes(unk_list)
         
         # Face models
         preset.face_model = data.get("face_model", 0)
         preset.hair_model = data.get("hair_model", 0)
+        preset.unk0x14 = 0
         preset.eyebrow_model = data.get("eyebrow_model", 0)
         preset.beard_model = data.get("beard_model", 0)
         preset.eyepatch_model = data.get("eyepatch_model", 0)
+        preset.unk0x24 = 0
+        preset.unk0x28 = 3  # CRITICAL: Must be 3, not 0!
         
         # Facial structure
         preset.apparent_age = data.get("apparent_age", 128)
         preset.facial_aesthetic = data.get("facial_aesthetic", 128)
         preset.form_emphasis = data.get("form_emphasis", 128)
+        preset.unk0x2f = 0
         preset.brow_ridge_height = data.get("brow_ridge_height", 128)
         preset.inner_brow_ridge = data.get("inner_brow_ridge", 128)
         preset.outer_brow_ridge = data.get("outer_brow_ridge", 128)
@@ -790,12 +794,15 @@ class FacePreset:
         preset.eye_spacing = data.get("eye_spacing", 128)
         preset.nose_size = data.get("nose_size", 128)
         preset.nose_forehead_ratio = data.get("nose_forehead_ratio", 128)
+        preset.unk0x45 = 0
         preset.face_protrusion = data.get("face_protrusion", 128)
         preset.vertical_face_ratio = data.get("vertical_face_ratio", 128)
         preset.facial_feature_slant = data.get("facial_feature_slant", 128)
         preset.horizontal_face_ratio = data.get("horizontal_face_ratio", 128)
+        preset.unk0x4a = 0
         preset.forehead_depth = data.get("forehead_depth", 128)
         preset.forehead_protrusion = data.get("forehead_protrusion", 128)
+        preset.unk0x4d = 0
         preset.jaw_protrusion = data.get("jaw_protrusion", 128)
         preset.jaw_width = data.get("jaw_width", 128)
         preset.lower_jaw = data.get("lower_jaw", 128)
@@ -855,7 +862,7 @@ class FacePreset:
         preset.right_iris_color_g = eye_color_right[1] if isinstance(eye_color_right, list) else data.get("right_iris_color_g", 120)
         preset.right_iris_color_b = eye_color_right[2] if isinstance(eye_color_right, list) else data.get("right_iris_color_b", 145)
         
-        # Set default values for other color/cosmetic fields
+        # Set values for other color/cosmetic fields
         preset.skin_luster = data.get("skin_luster", 128)
         preset.pores = data.get("pores", 0)
         preset.stubble = data.get("stubble", 0)
@@ -890,6 +897,7 @@ class FacePreset:
         preset.tattoo_mark_color_r = data.get("tattoo_mark_color_r", 0)
         preset.tattoo_mark_color_g = data.get("tattoo_mark_color_g", 0)
         preset.tattoo_mark_color_b = data.get("tattoo_mark_color_b", 0)
+        preset.unk0xd8 = 128  # CRITICAL: Must be 128, not 0!
         preset.tattoo_mark_flip = data.get("tattoo_mark_flip", 0)
         preset.body_hair = data.get("body_hair", 0)
         preset.body_hair_color_r = data.get("body_hair_color_r", 0)
@@ -936,6 +944,8 @@ class FacePreset:
         preset.eye_patch_color_b = data.get("eye_patch_color_b", 0)
         
         return preset
+
+
 
 
 @dataclass
