@@ -741,11 +741,11 @@ class FacePreset:
         
         # CRITICAL: These values must match working presets
         preset.magic = b"FACE"
-        preset.alignment = 4  # NOT 0!
-        preset.size = 0x120  # NOT 0x12F!
+        preset.alignment = 4 
+        preset.size = 0x120  
         preset.face_data_marker = 32767  # Use a common value from working presets
         
-        # Initialize padding - use zeros since we'll copy from template
+        # Initialize padding
         preset.unk0x00 = bytes([0] * 20)
         preset.unk0x6c = bytes([0] * 64)
         preset.unk0xb1 = bytes([0, 0])
@@ -766,7 +766,7 @@ class FacePreset:
         preset.beard_model = data.get("beard_model", 0)
         preset.eyepatch_model = data.get("eyepatch_model", 0)
         preset.unk0x24 = 0
-        preset.unk0x28 = 3  # CRITICAL: Must be 3, not 0!
+        preset.unk0x28 = 3 
         
         # Facial structure
         preset.apparent_age = data.get("apparent_age", 128)
@@ -897,7 +897,7 @@ class FacePreset:
         preset.tattoo_mark_color_r = data.get("tattoo_mark_color_r", 0)
         preset.tattoo_mark_color_g = data.get("tattoo_mark_color_g", 0)
         preset.tattoo_mark_color_b = data.get("tattoo_mark_color_b", 0)
-        preset.unk0xd8 = 128  # CRITICAL: Must be 128, not 0!
+        preset.unk0xd8 = 128 
         preset.tattoo_mark_flip = data.get("tattoo_mark_flip", 0)
         preset.body_hair = data.get("body_hair", 0)
         preset.body_hair_color_r = data.get("body_hair_color_r", 0)
