@@ -647,14 +647,19 @@ class FacePreset:
         return 0
     
     def to_dict(self) -> dict:
-        """Export all parameters to dictionary"""
+        """Export ALL parameters to dictionary"""
         return {
+            # Basic info
             "body_type": self.get_body_type(),
+            
+            # Face models
             "face_model": self.face_model,
             "hair_model": self.hair_model,
             "eyebrow_model": self.eyebrow_model,
             "beard_model": self.beard_model,
             "eyepatch_model": self.eyepatch_model,
+            
+            # Facial structure (68 parameters)
             "apparent_age": self.apparent_age,
             "facial_aesthetic": self.facial_aesthetic,
             "form_emphasis": self.form_emphasis,
@@ -715,15 +720,138 @@ class FacePreset:
             "nose_bridge_width": self.nose_bridge_width,
             "nose_height": self.nose_height,
             "nose_slant": self.nose_slant,
+            
+            # Body proportions
             "head_size": self.head_size,
             "chest_size": self.chest_size,
             "abdomen_size": self.abdomen_size,
             "arms_size": self.arms_size,
             "legs_size": self.legs_size,
+            
+            # Skin
             "skin_color": [self.skin_color_r, self.skin_color_g, self.skin_color_b],
-            "hair_color": [self.hair_color_r, self.hair_color_g, self.hair_color_b],
+            "skin_luster": self.skin_luster,
+            "pores": self.pores,
+            "stubble": self.stubble,
+            
+            # Cosmetics - Dark Circles
+            "dark_circles": self.dark_circles,
+            "dark_circle_color_r": self.dark_circle_color_r,
+            "dark_circle_color_g": self.dark_circle_color_g,
+            "dark_circle_color_b": self.dark_circle_color_b,
+            
+            # Cosmetics - Cheek Color
+            "cheeks_color_intensity": self.cheeks_color_intensity,
+            "cheek_color_r": self.cheek_color_r,
+            "cheek_color_g": self.cheek_color_g,
+            "cheek_color_b": self.cheek_color_b,
+            
+            # Cosmetics - Eye Liner
+            "eye_liner": self.eye_liner,
+            "eye_liner_color_r": self.eye_liner_color_r,
+            "eye_liner_color_g": self.eye_liner_color_g,
+            "eye_liner_color_b": self.eye_liner_color_b,
+            
+            # Cosmetics - Eye Shadow (Lower)
+            "eye_shadow_lower": self.eye_shadow_lower,
+            "eye_shadow_lower_color_r": self.eye_shadow_lower_color_r,
+            "eye_shadow_lower_color_g": self.eye_shadow_lower_color_g,
+            "eye_shadow_lower_color_b": self.eye_shadow_lower_color_b,
+            
+            # Cosmetics - Eye Shadow (Upper)
+            "eye_shadow_upper": self.eye_shadow_upper,
+            "eye_shadow_upper_color_r": self.eye_shadow_upper_color_r,
+            "eye_shadow_upper_color_g": self.eye_shadow_upper_color_g,
+            "eye_shadow_upper_color_b": self.eye_shadow_upper_color_b,
+            
+            # Cosmetics - Lipstick
+            "lip_stick": self.lip_stick,
+            "lip_stick_color_r": self.lip_stick_color_r,
+            "lip_stick_color_g": self.lip_stick_color_g,
+            "lip_stick_color_b": self.lip_stick_color_b,
+            
+            # Tattoo/Mark
+            "tattoo_mark_position_horizontal": self.tattoo_mark_position_horizontal,
+            "tattoo_mark_position_vertical": self.tattoo_mark_position_vertical,
+            "tattoo_mark_angle": self.tattoo_mark_angle,
+            "tattoo_mark_expansion": self.tattoo_mark_expansion,
+            "tattoo_mark_color_r": self.tattoo_mark_color_r,
+            "tattoo_mark_color_g": self.tattoo_mark_color_g,
+            "tattoo_mark_color_b": self.tattoo_mark_color_b,
+            "tattoo_mark_flip": self.tattoo_mark_flip,
+            
+            # Body Hair
+            "body_hair": self.body_hair,
+            "body_hair_color_r": self.body_hair_color_r,
+            "body_hair_color_g": self.body_hair_color_g,
+            "body_hair_color_b": self.body_hair_color_b,
+            
+            # Right Eye Details
+            "right_iris_color_r": self.right_iris_color_r,
+            "right_iris_color_g": self.right_iris_color_g,
+            "right_iris_color_b": self.right_iris_color_b,
+            "right_iris_size": self.right_iris_size,
+            "right_eye_clouding": self.right_eye_clouding,
+            "right_eye_clouding_color_r": self.right_eye_clouding_color_r,
+            "right_eye_clouding_color_g": self.right_eye_clouding_color_g,
+            "right_eye_clouding_color_b": self.right_eye_clouding_color_b,
+            "right_eye_white_color_r": self.right_eye_white_color_r,
+            "right_eye_white_color_g": self.right_eye_white_color_g,
+            "right_eye_white_color_b": self.right_eye_white_color_b,
+            "right_eye_position": self.right_eye_position,
+            
+            # Left Eye Details
+            "left_iris_color_r": self.left_iris_color_r,
+            "left_iris_color_g": self.left_iris_color_g,
+            "left_iris_color_b": self.left_iris_color_b,
+            "left_iris_size": self.left_iris_size,
+            "left_eye_clouding": self.left_eye_clouding,
+            "left_eye_clouding_color_r": self.left_eye_clouding_color_r,
+            "left_eye_clouding_color_g": self.left_eye_clouding_color_g,
+            "left_eye_clouding_color_b": self.left_eye_clouding_color_b,
+            "left_eye_white_color_r": self.left_eye_white_color_r,
+            "left_eye_white_color_g": self.left_eye_white_color_g,
+            "left_eye_white_color_b": self.left_eye_white_color_b,
+            "left_eye_position": self.left_eye_position,
+            
+            # Legacy eye color format (for backwards compatibility)
             "eye_color_left": [self.left_iris_color_r, self.left_iris_color_g, self.left_iris_color_b],
             "eye_color_right": [self.right_iris_color_r, self.right_iris_color_g, self.right_iris_color_b],
+            
+            # Hair Details
+            "hair_color": [self.hair_color_r, self.hair_color_g, self.hair_color_b],
+            "hair_color_r": self.hair_color_r,
+            "hair_color_g": self.hair_color_g,
+            "hair_color_b": self.hair_color_b,
+            "luster": self.luster,
+            "hair_root_darkness": self.hair_root_darkness,
+            "white_hairs": self.white_hairs,
+            
+            # Beard Details
+            "beard_color_r": self.beard_color_r,
+            "beard_color_g": self.beard_color_g,
+            "beard_color_b": self.beard_color_b,
+            "beard_luster": self.beard_luster,
+            "beard_root_darkness": self.beard_root_darkness,
+            "beard_white_hairs": self.beard_white_hairs,
+            
+            # Eyebrow Details
+            "brow_color_r": self.brow_color_r,
+            "brow_color_g": self.brow_color_g,
+            "brow_color_b": self.brow_color_b,
+            "brow_luster": self.brow_luster,
+            "brow_root_darkness": self.brow_root_darkness,
+            "brow_white_hairs": self.brow_white_hairs,
+            
+            # Eyelash Details
+            "eye_lash_color_r": self.eye_lash_color_r,
+            "eye_lash_color_g": self.eye_lash_color_g,
+            "eye_lash_color_b": self.eye_lash_color_b,
+            
+            # Eye Patch Details
+            "eye_patch_color_r": self.eye_patch_color_r,
+            "eye_patch_color_g": self.eye_patch_color_g,
+            "eye_patch_color_b": self.eye_patch_color_b,
         }
     
     @classmethod

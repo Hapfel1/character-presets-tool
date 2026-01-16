@@ -10,6 +10,7 @@ A tool for managing character appearance presets in Elden Ring save files. Extra
 - **View Character Presets**: Browse all 15 preset slots in your save file
 - **Detailed Information**: See complete facial customization data (120+ parameters)
 - **Export to JSON**: Save presets for backup or sharing
+- **Import from JSON**: Import presets from shared JSON file
 - **Copy Between Saves**: Transfer presets from one save file to another
 - **Auto-Detection**: Automatically locate save files in default directories
 

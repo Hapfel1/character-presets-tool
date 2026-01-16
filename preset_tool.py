@@ -135,7 +135,7 @@ def copy_preset(source_save_path: str, source_slot: int, dest_save_path: str, de
 
 
 def show_preset_info(save_path: str, slot: int) -> None:
-    """Show detailed info for a specific preset"""
+    """Show detailed info for a specific preset - COMPLETE VERSION"""
     print(f"Loading save file: {save_path}")
     
     try:
@@ -159,46 +159,194 @@ def show_preset_info(save_path: str, slot: int) -> None:
             print(f"\nSlot {slot} is empty")
             return
         
-        print(f"\nPreset Details - Slot {slot}")
-        print("=" * 60)
+        print(f"\n{'=' * 60}")
+        print(f"PRESET SLOT {slot}")
+        print(f"{'=' * 60}")
         
         body_type = "Type A (Male)" if preset.get_body_type() == 0 else "Type B (Female)"
-        print(f"\nBody Type: {body_type}")
+        print(f"Body Type: {body_type}")
         
-        print(f"\nModels:")
-        print(f"  Face Model: {preset.face_model}")
-        print(f"  Hair Model: {preset.hair_model}")
+        # MODELS
+        print(f"\nMODELS:")
+        print(f"  Face Model:    {preset.face_model}")
+        print(f"  Hair Model:    {preset.hair_model}")
         print(f"  Eyebrow Model: {preset.eyebrow_model}")
-        print(f"  Beard Model: {preset.beard_model}")
-        print(f"  Eye Patch Model: {preset.eyepatch_model}")
+        print(f"  Beard Model:   {preset.beard_model}")
+        print(f"  Eye Patch:     {preset.eyepatch_model}")
         
-        print(f"\nFacial Structure:")
-        print(f"  Apparent Age: {preset.apparent_age}")
-        print(f"  Facial Aesthetic: {preset.facial_aesthetic}")
-        print(f"  Form Emphasis: {preset.form_emphasis}")
-        print(f"  Eye Size: {preset.eye_size}")
-        print(f"  Eye Position: {preset.eye_position}")
-        print(f"  Nose Size: {preset.nose_size}")
-        print(f"  Mouth Size: {preset.mouth_width}")
+        # FACIAL STRUCTURE - Complete list
+        print(f"\nFACIAL STRUCTURE:")
+        print(f"  Apparent Age:      {preset.apparent_age}")
+        print(f"  Facial Aesthetic:  {preset.facial_aesthetic}")
+        print(f"  Form Emphasis:     {preset.form_emphasis}")
         
-        print(f"\nBody Proportions:")
-        print(f"  Head Size: {preset.head_size}")
-        print(f"  Chest Size: {preset.chest_size}")
-        print(f"  Abdomen Size: {preset.abdomen_size}")
-        print(f"  Arms Size: {preset.arms_size}")
-        print(f"  Legs Size: {preset.legs_size}")
+        print(f"\n  Brow Ridge:")
+        print(f"    Height: {preset.brow_ridge_height}")
+        print(f"    Inner:  {preset.inner_brow_ridge}")
+        print(f"    Outer:  {preset.outer_brow_ridge}")
         
-        print(f"\nColors:")
-        print(f"  Skin: RGB({preset.skin_color_r}, {preset.skin_color_g}, {preset.skin_color_b})")
-        print(f"  Hair: RGB({preset.hair_color_r}, {preset.hair_color_g}, {preset.hair_color_b})")
-        print(f"  Left Eye: RGB({preset.left_iris_color_r}, {preset.left_iris_color_g}, {preset.left_iris_color_b})")
-        print(f"  Right Eye: RGB({preset.right_iris_color_r}, {preset.right_iris_color_g}, {preset.right_iris_color_b})")
+        print(f"\n  Cheekbones:")
+        print(f"    Height:     {preset.cheekbone_height}")
+        print(f"    Depth:      {preset.cheekbone_depth}")
+        print(f"    Width:      {preset.cheekbone_width}")
+        print(f"    Protrusion: {preset.cheekbone_protrusion}")
+        print(f"  Cheeks: {preset.cheeks}")
         
-        print(f"\nCosmetics:")
-        print(f"  Stubble: {preset.stubble}")
-        print(f"  Dark Circles: {preset.dark_circles}")
-        print(f"  Eye Liner: {preset.eye_liner}")
-        print(f"  Lip Stick: {preset.lip_stick}")
+        print(f"\n  Chin:")
+        print(f"    Tip Position: {preset.chin_tip_position}")
+        print(f"    Length:       {preset.chin_length}")
+        print(f"    Protrusion:   {preset.chin_protrusion}")
+        print(f"    Depth:        {preset.chin_depth}")
+        print(f"    Size:         {preset.chin_size}")
+        print(f"    Height:       {preset.chin_height}")
+        print(f"    Width:        {preset.chin_width}")
+        
+        print(f"\n  Eyes:")
+        print(f"    Position: {preset.eye_position}")
+        print(f"    Size:     {preset.eye_size}")
+        print(f"    Slant:    {preset.eye_slant}")
+        print(f"    Spacing:  {preset.eye_spacing}")
+        
+        print(f"\n  Nose:")
+        print(f"    Size:            {preset.nose_size}")
+        print(f"    Forehead Ratio:  {preset.nose_forehead_ratio}")
+        print(f"    Ridge Depth:     {preset.nose_ridge_depth}")
+        print(f"    Ridge Length:    {preset.nose_ridge_length}")
+        print(f"    Position:        {preset.nose_position}")
+        print(f"    Tip Height:      {preset.nose_tip_height}")
+        print(f"    Nostril Slant:   {preset.nostril_slant}")
+        print(f"    Nostril Size:    {preset.nostril_size}")
+        print(f"    Nostril Width:   {preset.nostril_width}")
+        print(f"    Protrusion:      {preset.nose_protrusion}")
+        print(f"    Bridge Height:   {preset.nose_bridge_height}")
+        print(f"    Bridge Prot. 1:  {preset.bridge_protrusion1}")
+        print(f"    Bridge Prot. 2:  {preset.bridge_protrusion2}")
+        print(f"    Bridge Width:    {preset.nose_bridge_width}")
+        print(f"    Height:          {preset.nose_height}")
+        print(f"    Slant:           {preset.nose_slant}")
+        
+        print(f"\n  Face Shape:")
+        print(f"    Protrusion:          {preset.face_protrusion}")
+        print(f"    Vertical Ratio:      {preset.vertical_face_ratio}")
+        print(f"    Feature Slant:       {preset.facial_feature_slant}")
+        print(f"    Horizontal Ratio:    {preset.horizontal_face_ratio}")
+        
+        print(f"\n  Forehead:")
+        print(f"    Depth:      {preset.forehead_depth}")
+        print(f"    Protrusion: {preset.forehead_protrusion}")
+        
+        print(f"\n  Jaw:")
+        print(f"    Protrusion: {preset.jaw_protrusion}")
+        print(f"    Width:      {preset.jaw_width}")
+        print(f"    Lower:      {preset.lower_jaw}")
+        print(f"    Contour:    {preset.jaw_contour}")
+        
+        print(f"\n  Lips:")
+        print(f"    Shape:      {preset.lip_shape}")
+        print(f"    Size:       {preset.lip_size}")
+        print(f"    Fullness:   {preset.lip_fullness}")
+        print(f"    Protrusion: {preset.lip_protrusion}")
+        print(f"    Thickness:  {preset.lip_thickness}")
+        
+        print(f"\n  Mouth:")
+        print(f"    Expression:     {preset.mouth_expression}")
+        print(f"    Protrusion:     {preset.mouth_protrusion}")
+        print(f"    Slant:          {preset.mouth_slant}")
+        print(f"    Occlusion:      {preset.occlusion}")
+        print(f"    Position:       {preset.mouth_position}")
+        print(f"    Width:          {preset.mouth_width}")
+        print(f"    Chin Distance:  {preset.mouth_chin_distance}")
+        
+        # BODY PROPORTIONS
+        print(f"\nBODY PROPORTIONS:")
+        print(f"  Head:    {preset.head_size}")
+        print(f"  Chest:   {preset.chest_size}")
+        print(f"  Abdomen: {preset.abdomen_size}")
+        print(f"  Arms:    {preset.arms_size}")
+        print(f"  Legs:    {preset.legs_size}")
+        
+        # COLORS
+        print(f"\nCOLORS:")
+        print(f"  Skin:       RGB({preset.skin_color_r:>3}, {preset.skin_color_g:>3}, {preset.skin_color_b:>3})")
+        print(f"    Luster: {preset.skin_luster}")
+        print(f"    Pores:  {preset.pores}")
+        
+        print(f"\n  Hair:       RGB({preset.hair_color_r:>3}, {preset.hair_color_g:>3}, {preset.hair_color_b:>3})")
+        print(f"    Luster:        {preset.luster}")
+        print(f"    Root Darkness: {preset.hair_root_darkness}")
+        print(f"    White Hairs:   {preset.white_hairs}")
+        
+        print(f"\n  Beard:      RGB({preset.beard_color_r:>3}, {preset.beard_color_g:>3}, {preset.beard_color_b:>3})")
+        print(f"    Luster:        {preset.beard_luster}")
+        print(f"    Root Darkness: {preset.beard_root_darkness}")
+        print(f"    White Hairs:   {preset.beard_white_hairs}")
+        
+        print(f"\n  Eyebrows:   RGB({preset.brow_color_r:>3}, {preset.brow_color_g:>3}, {preset.brow_color_b:>3})")
+        print(f"    Luster:        {preset.brow_luster}")
+        print(f"    Root Darkness: {preset.brow_root_darkness}")
+        print(f"    White Hairs:   {preset.brow_white_hairs}")
+        
+        print(f"\n  Eyelashes:  RGB({preset.eye_lash_color_r:>3}, {preset.eye_lash_color_g:>3}, {preset.eye_lash_color_b:>3})")
+        print(f"  Eye Patch:  RGB({preset.eye_patch_color_r:>3}, {preset.eye_patch_color_g:>3}, {preset.eye_patch_color_b:>3})")
+        
+        print(f"\n  Left Eye:   RGB({preset.left_iris_color_r:>3}, {preset.left_iris_color_g:>3}, {preset.left_iris_color_b:>3})")
+        print(f"    Iris Size:  {preset.left_iris_size}")
+        print(f"    Clouding:   {preset.left_eye_clouding}")
+        print(f"    Cloud RGB:  ({preset.left_eye_clouding_color_r}, {preset.left_eye_clouding_color_g}, {preset.left_eye_clouding_color_b})")
+        print(f"    White RGB:  ({preset.left_eye_white_color_r}, {preset.left_eye_white_color_g}, {preset.left_eye_white_color_b})")
+        print(f"    Position:   {preset.left_eye_position}")
+        
+        print(f"\n  Right Eye:  RGB({preset.right_iris_color_r:>3}, {preset.right_iris_color_g:>3}, {preset.right_iris_color_b:>3})")
+        print(f"    Iris Size:  {preset.right_iris_size}")
+        print(f"    Clouding:   {preset.right_eye_clouding}")
+        print(f"    Cloud RGB:  ({preset.right_eye_clouding_color_r}, {preset.right_eye_clouding_color_g}, {preset.right_eye_clouding_color_b})")
+        print(f"    White RGB:  ({preset.right_eye_white_color_r}, {preset.right_eye_white_color_g}, {preset.right_eye_white_color_b})")
+        print(f"    Position:   {preset.right_eye_position}")
+        
+        # COSMETICS
+        print(f"\nCOSMETICS:")
+        print(f"  Stubble:       {preset.stubble}")
+        
+        print(f"\n  Dark Circles:  {preset.dark_circles}")
+        if preset.dark_circles > 0:
+            print(f"    Color: RGB({preset.dark_circle_color_r}, {preset.dark_circle_color_g}, {preset.dark_circle_color_b})")
+        
+        print(f"\n  Cheek Color:   {preset.cheeks_color_intensity}")
+        if preset.cheeks_color_intensity > 0:
+            print(f"    Color: RGB({preset.cheek_color_r}, {preset.cheek_color_g}, {preset.cheek_color_b})")
+        
+        print(f"\n  Eye Liner:     {preset.eye_liner}")
+        if preset.eye_liner > 0:
+            print(f"    Color: RGB({preset.eye_liner_color_r}, {preset.eye_liner_color_g}, {preset.eye_liner_color_b})")
+        
+        print(f"\n  Eye Shadow (Lower): {preset.eye_shadow_lower}")
+        if preset.eye_shadow_lower > 0:
+            print(f"    Color: RGB({preset.eye_shadow_lower_color_r}, {preset.eye_shadow_lower_color_g}, {preset.eye_shadow_lower_color_b})")
+        
+        print(f"\n  Eye Shadow (Upper): {preset.eye_shadow_upper}")
+        if preset.eye_shadow_upper > 0:
+            print(f"    Color: RGB({preset.eye_shadow_upper_color_r}, {preset.eye_shadow_upper_color_g}, {preset.eye_shadow_upper_color_b})")
+        
+        print(f"\n  Lip Stick:     {preset.lip_stick}")
+        if preset.lip_stick > 0:
+            print(f"    Color: RGB({preset.lip_stick_color_r}, {preset.lip_stick_color_g}, {preset.lip_stick_color_b})")
+        
+        # TATTOO/MARK
+        print(f"\nTATTOO/MARK:")
+        print(f"  Horizontal Position: {preset.tattoo_mark_position_horizontal}")
+        print(f"  Vertical Position:   {preset.tattoo_mark_position_vertical}")
+        print(f"  Angle:               {preset.tattoo_mark_angle}")
+        print(f"  Expansion:           {preset.tattoo_mark_expansion}")
+        print(f"  Color:               RGB({preset.tattoo_mark_color_r}, {preset.tattoo_mark_color_g}, {preset.tattoo_mark_color_b})")
+        print(f"  Flip:                {preset.tattoo_mark_flip}")
+        
+        # BODY HAIR
+        print(f"\nBODY HAIR:")
+        print(f"  Intensity: {preset.body_hair}")
+        if preset.body_hair > 0:
+            print(f"  Color:     RGB({preset.body_hair_color_r}, {preset.body_hair_color_g}, {preset.body_hair_color_b})")
+        
+        print(f"\n{'=' * 60}\n")
         
     except FileNotFoundError:
         print(f"Error: Save file not found: {save_path}")

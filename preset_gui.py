@@ -340,14 +340,14 @@ class PresetManagerGUI:
         # Create detail window
         detail_window = tk.Toplevel(self.root)
         detail_window.title(f"Preset Details - Slot {self.selected_slot + 1}")
-        detail_window.geometry("600x500")
+        detail_window.geometry("700x700")
         detail_window.grab_set()
         
         # Center window
         detail_window.update_idletasks()
         x = (detail_window.winfo_screenwidth() // 2) - (detail_window.winfo_width() // 2)
         y = (detail_window.winfo_screenheight() // 2) - (detail_window.winfo_height() // 2)
-        detail_window.geometry(f"600x500+{x}+{y}")
+        detail_window.geometry(f"700x700+{x}+{y}")
         
         # Create text widget with scrollbar
         text_frame = ttk.Frame(detail_window, padding=10)
@@ -361,13 +361,13 @@ class PresetManagerGUI:
             wrap=tk.WORD,
             yscrollcommand=scrollbar.set,
             font=("Consolas", 9),
-            width=70,
-            height=25,
+            width=80,
+            height=35,
         )
         text_widget.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar.config(command=text_widget.yview)
         
-        # Build details text
+        # Build complete details text
         details = []
         details.append(f"{'='*60}\n")
         details.append(f"PRESET SLOT {self.selected_slot + 1}\n")
@@ -376,6 +376,7 @@ class PresetManagerGUI:
         body_type = "Type A (Male)" if preset.get_body_type() == 0 else "Type B (Female)"
         details.append(f"Body Type: {body_type}\n\n")
         
+        # MODELS
         details.append("MODELS:\n")
         details.append(f"  Face Model:    {preset.face_model}\n")
         details.append(f"  Hair Model:    {preset.hair_model}\n")
@@ -383,15 +384,90 @@ class PresetManagerGUI:
         details.append(f"  Beard Model:   {preset.beard_model}\n")
         details.append(f"  Eye Patch:     {preset.eyepatch_model}\n\n")
         
+        # FACIAL STRUCTURE - Complete
         details.append("FACIAL STRUCTURE:\n")
         details.append(f"  Apparent Age:      {preset.apparent_age}\n")
         details.append(f"  Facial Aesthetic:  {preset.facial_aesthetic}\n")
-        details.append(f"  Form Emphasis:     {preset.form_emphasis}\n")
-        details.append(f"  Eye Size:          {preset.eye_size}\n")
-        details.append(f"  Eye Position:      {preset.eye_position}\n")
-        details.append(f"  Nose Size:         {preset.nose_size}\n")
-        details.append(f"  Mouth Width:       {preset.mouth_width}\n\n")
+        details.append(f"  Form Emphasis:     {preset.form_emphasis}\n\n")
         
+        details.append("  Brow Ridge:\n")
+        details.append(f"    Height: {preset.brow_ridge_height}\n")
+        details.append(f"    Inner:  {preset.inner_brow_ridge}\n")
+        details.append(f"    Outer:  {preset.outer_brow_ridge}\n\n")
+        
+        details.append("  Cheekbones:\n")
+        details.append(f"    Height:     {preset.cheekbone_height}\n")
+        details.append(f"    Depth:      {preset.cheekbone_depth}\n")
+        details.append(f"    Width:      {preset.cheekbone_width}\n")
+        details.append(f"    Protrusion: {preset.cheekbone_protrusion}\n")
+        details.append(f"  Cheeks: {preset.cheeks}\n\n")
+        
+        details.append("  Chin:\n")
+        details.append(f"    Tip Position: {preset.chin_tip_position}\n")
+        details.append(f"    Length:       {preset.chin_length}\n")
+        details.append(f"    Protrusion:   {preset.chin_protrusion}\n")
+        details.append(f"    Depth:        {preset.chin_depth}\n")
+        details.append(f"    Size:         {preset.chin_size}\n")
+        details.append(f"    Height:       {preset.chin_height}\n")
+        details.append(f"    Width:        {preset.chin_width}\n\n")
+        
+        details.append("  Eyes:\n")
+        details.append(f"    Position: {preset.eye_position}\n")
+        details.append(f"    Size:     {preset.eye_size}\n")
+        details.append(f"    Slant:    {preset.eye_slant}\n")
+        details.append(f"    Spacing:  {preset.eye_spacing}\n\n")
+        
+        details.append("  Nose:\n")
+        details.append(f"    Size:            {preset.nose_size}\n")
+        details.append(f"    Forehead Ratio:  {preset.nose_forehead_ratio}\n")
+        details.append(f"    Ridge Depth:     {preset.nose_ridge_depth}\n")
+        details.append(f"    Ridge Length:    {preset.nose_ridge_length}\n")
+        details.append(f"    Position:        {preset.nose_position}\n")
+        details.append(f"    Tip Height:      {preset.nose_tip_height}\n")
+        details.append(f"    Nostril Slant:   {preset.nostril_slant}\n")
+        details.append(f"    Nostril Size:    {preset.nostril_size}\n")
+        details.append(f"    Nostril Width:   {preset.nostril_width}\n")
+        details.append(f"    Protrusion:      {preset.nose_protrusion}\n")
+        details.append(f"    Bridge Height:   {preset.nose_bridge_height}\n")
+        details.append(f"    Bridge Prot. 1:  {preset.bridge_protrusion1}\n")
+        details.append(f"    Bridge Prot. 2:  {preset.bridge_protrusion2}\n")
+        details.append(f"    Bridge Width:    {preset.nose_bridge_width}\n")
+        details.append(f"    Height:          {preset.nose_height}\n")
+        details.append(f"    Slant:           {preset.nose_slant}\n\n")
+        
+        details.append("  Face Shape:\n")
+        details.append(f"    Protrusion:          {preset.face_protrusion}\n")
+        details.append(f"    Vertical Ratio:      {preset.vertical_face_ratio}\n")
+        details.append(f"    Feature Slant:       {preset.facial_feature_slant}\n")
+        details.append(f"    Horizontal Ratio:    {preset.horizontal_face_ratio}\n\n")
+        
+        details.append("  Forehead:\n")
+        details.append(f"    Depth:      {preset.forehead_depth}\n")
+        details.append(f"    Protrusion: {preset.forehead_protrusion}\n\n")
+        
+        details.append("  Jaw:\n")
+        details.append(f"    Protrusion: {preset.jaw_protrusion}\n")
+        details.append(f"    Width:      {preset.jaw_width}\n")
+        details.append(f"    Lower:      {preset.lower_jaw}\n")
+        details.append(f"    Contour:    {preset.jaw_contour}\n\n")
+        
+        details.append("  Lips:\n")
+        details.append(f"    Shape:      {preset.lip_shape}\n")
+        details.append(f"    Size:       {preset.lip_size}\n")
+        details.append(f"    Fullness:   {preset.lip_fullness}\n")
+        details.append(f"    Protrusion: {preset.lip_protrusion}\n")
+        details.append(f"    Thickness:  {preset.lip_thickness}\n\n")
+        
+        details.append("  Mouth:\n")
+        details.append(f"    Expression:     {preset.mouth_expression}\n")
+        details.append(f"    Protrusion:     {preset.mouth_protrusion}\n")
+        details.append(f"    Slant:          {preset.mouth_slant}\n")
+        details.append(f"    Occlusion:      {preset.occlusion}\n")
+        details.append(f"    Position:       {preset.mouth_position}\n")
+        details.append(f"    Width:          {preset.mouth_width}\n")
+        details.append(f"    Chin Distance:  {preset.mouth_chin_distance}\n\n")
+        
+        # BODY PROPORTIONS
         details.append("BODY PROPORTIONS:\n")
         details.append(f"  Head:    {preset.head_size}\n")
         details.append(f"  Chest:   {preset.chest_size}\n")
@@ -399,17 +475,94 @@ class PresetManagerGUI:
         details.append(f"  Arms:    {preset.arms_size}\n")
         details.append(f"  Legs:    {preset.legs_size}\n\n")
         
+        # COLORS - Complete with details
         details.append("COLORS:\n")
         details.append(f"  Skin:       RGB({preset.skin_color_r:3d}, {preset.skin_color_g:3d}, {preset.skin_color_b:3d})\n")
-        details.append(f"  Hair:       RGB({preset.hair_color_r:3d}, {preset.hair_color_g:3d}, {preset.hair_color_b:3d})\n")
-        details.append(f"  Left Eye:   RGB({preset.left_iris_color_r:3d}, {preset.left_iris_color_g:3d}, {preset.left_iris_color_b:3d})\n")
-        details.append(f"  Right Eye:  RGB({preset.right_iris_color_r:3d}, {preset.right_iris_color_g:3d}, {preset.right_iris_color_b:3d})\n\n")
+        details.append(f"    Luster: {preset.skin_luster}\n")
+        details.append(f"    Pores:  {preset.pores}\n\n")
         
+        details.append(f"  Hair:       RGB({preset.hair_color_r:3d}, {preset.hair_color_g:3d}, {preset.hair_color_b:3d})\n")
+        details.append(f"    Luster:        {preset.luster}\n")
+        details.append(f"    Root Darkness: {preset.hair_root_darkness}\n")
+        details.append(f"    White Hairs:   {preset.white_hairs}\n\n")
+        
+        details.append(f"  Beard:      RGB({preset.beard_color_r:3d}, {preset.beard_color_g:3d}, {preset.beard_color_b:3d})\n")
+        details.append(f"    Luster:        {preset.beard_luster}\n")
+        details.append(f"    Root Darkness: {preset.beard_root_darkness}\n")
+        details.append(f"    White Hairs:   {preset.beard_white_hairs}\n\n")
+        
+        details.append(f"  Eyebrows:   RGB({preset.brow_color_r:3d}, {preset.brow_color_g:3d}, {preset.brow_color_b:3d})\n")
+        details.append(f"    Luster:        {preset.brow_luster}\n")
+        details.append(f"    Root Darkness: {preset.brow_root_darkness}\n")
+        details.append(f"    White Hairs:   {preset.brow_white_hairs}\n\n")
+        
+        details.append(f"  Eyelashes:  RGB({preset.eye_lash_color_r:3d}, {preset.eye_lash_color_g:3d}, {preset.eye_lash_color_b:3d})\n")
+        details.append(f"  Eye Patch:  RGB({preset.eye_patch_color_r:3d}, {preset.eye_patch_color_g:3d}, {preset.eye_patch_color_b:3d})\n\n")
+        
+        details.append(f"  Left Eye:   RGB({preset.left_iris_color_r:3d}, {preset.left_iris_color_g:3d}, {preset.left_iris_color_b:3d})\n")
+        details.append(f"    Iris Size:  {preset.left_iris_size}\n")
+        details.append(f"    Clouding:   {preset.left_eye_clouding}\n")
+        details.append(f"    Cloud RGB:  ({preset.left_eye_clouding_color_r}, {preset.left_eye_clouding_color_g}, {preset.left_eye_clouding_color_b})\n")
+        details.append(f"    White RGB:  ({preset.left_eye_white_color_r}, {preset.left_eye_white_color_g}, {preset.left_eye_white_color_b})\n")
+        details.append(f"    Position:   {preset.left_eye_position}\n\n")
+        
+        details.append(f"  Right Eye:  RGB({preset.right_iris_color_r:3d}, {preset.right_iris_color_g:3d}, {preset.right_iris_color_b:3d})\n")
+        details.append(f"    Iris Size:  {preset.right_iris_size}\n")
+        details.append(f"    Clouding:   {preset.right_eye_clouding}\n")
+        details.append(f"    Cloud RGB:  ({preset.right_eye_clouding_color_r}, {preset.right_eye_clouding_color_g}, {preset.right_eye_clouding_color_b})\n")
+        details.append(f"    White RGB:  ({preset.right_eye_white_color_r}, {preset.right_eye_white_color_g}, {preset.right_eye_white_color_b})\n")
+        details.append(f"    Position:   {preset.right_eye_position}\n\n")
+        
+        # COSMETICS - Complete
         details.append("COSMETICS:\n")
-        details.append(f"  Stubble:       {preset.stubble}\n")
+        details.append(f"  Stubble:       {preset.stubble}\n\n")
+        
         details.append(f"  Dark Circles:  {preset.dark_circles}\n")
+        if preset.dark_circles > 0:
+            details.append(f"    Color: RGB({preset.dark_circle_color_r}, {preset.dark_circle_color_g}, {preset.dark_circle_color_b})\n")
+        details.append("\n")
+        
+        details.append(f"  Cheek Color:   {preset.cheeks_color_intensity}\n")
+        if preset.cheeks_color_intensity > 0:
+            details.append(f"    Color: RGB({preset.cheek_color_r}, {preset.cheek_color_g}, {preset.cheek_color_b})\n")
+        details.append("\n")
+        
         details.append(f"  Eye Liner:     {preset.eye_liner}\n")
+        if preset.eye_liner > 0:
+            details.append(f"    Color: RGB({preset.eye_liner_color_r}, {preset.eye_liner_color_g}, {preset.eye_liner_color_b})\n")
+        details.append("\n")
+        
+        details.append(f"  Eye Shadow (Lower): {preset.eye_shadow_lower}\n")
+        if preset.eye_shadow_lower > 0:
+            details.append(f"    Color: RGB({preset.eye_shadow_lower_color_r}, {preset.eye_shadow_lower_color_g}, {preset.eye_shadow_lower_color_b})\n")
+        details.append("\n")
+        
+        details.append(f"  Eye Shadow (Upper): {preset.eye_shadow_upper}\n")
+        if preset.eye_shadow_upper > 0:
+            details.append(f"    Color: RGB({preset.eye_shadow_upper_color_r}, {preset.eye_shadow_upper_color_g}, {preset.eye_shadow_upper_color_b})\n")
+        details.append("\n")
+        
         details.append(f"  Lip Stick:     {preset.lip_stick}\n")
+        if preset.lip_stick > 0:
+            details.append(f"    Color: RGB({preset.lip_stick_color_r}, {preset.lip_stick_color_g}, {preset.lip_stick_color_b})\n")
+        details.append("\n")
+        
+        # TATTOO/MARK
+        details.append("TATTOO/MARK:\n")
+        details.append(f"  Horizontal Position: {preset.tattoo_mark_position_horizontal}\n")
+        details.append(f"  Vertical Position:   {preset.tattoo_mark_position_vertical}\n")
+        details.append(f"  Angle:               {preset.tattoo_mark_angle}\n")
+        details.append(f"  Expansion:           {preset.tattoo_mark_expansion}\n")
+        details.append(f"  Color:               RGB({preset.tattoo_mark_color_r}, {preset.tattoo_mark_color_g}, {preset.tattoo_mark_color_b})\n")
+        details.append(f"  Flip:                {preset.tattoo_mark_flip}\n\n")
+        
+        # BODY HAIR
+        details.append("BODY HAIR:\n")
+        details.append(f"  Intensity: {preset.body_hair}\n")
+        if preset.body_hair > 0:
+            details.append(f"  Color:     RGB({preset.body_hair_color_r}, {preset.body_hair_color_g}, {preset.body_hair_color_b})\n")
+        
+        details.append(f"\n{'='*60}\n")
         
         text_widget.insert(1.0, "".join(details))
         text_widget.config(state=tk.DISABLED)
