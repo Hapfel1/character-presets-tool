@@ -67,7 +67,7 @@ executables = [
 
 setup(
     name="Elden Ring Preset Manager",
-    version="1.0.0",
+    version="1.1.0",
     description="Elden Ring Character Preset Manager",
     options={"build_exe": build_exe_options},
     executables=executables,
